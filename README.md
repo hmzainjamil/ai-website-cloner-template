@@ -1,408 +1,155 @@
-# ai-website-cloner-template
+# AI Website Cloner Template
 
-![badge](https://img.shields.io/badge/Claude-Code-blue?style=flat) ![badge](https://img.shields.io/badge/AI-Powered-orange?style=flat) ![badge](https://img.shields.io/badge/Open-Source-green?style=flat)
+<a href="https://github.com/JCodesMore/ai-website-cloner-template/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a> <a href="https://github.com/JCodesMore/ai-website-cloner-template/stargazers"><img src="https://img.shields.io/github/stars/JCodesMore/ai-website-cloner-template?style=flat" alt="Stars" /></a> <a href="https://discord.gg/hrTSX5yTpB"><img src="https://img.shields.io/discord/1400896964597383279?label=discord" alt="Discord" /></a>
 
-> AI-powered website cloning and replication template
+A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. 
 
----
+**Recommended: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) with Opus 4.7 for best results** — but works with a variety of AI coding agents.
 
-## CONCEPTS
+Point it at a URL, run `/clone-website`, and your AI agent will inspect the site, extract design tokens and assets, write component specs, and dispatch parallel builders to reconstruct every section.
 
-| Concept | Description | Source |
-|---------|-------------|--------|
-| Core — AI-powered foundation for cloner workflows | Core foundation — the primary abstraction this repo builds on | [docs](#) |
-| Execution — task decomposition and cloner routing | Execution layer — how tasks get decomposed and routed | [docs](#) |
-| Integration — Claude Code + website connectivity | Integration layer — connecting to external tools and APIs | [docs](#) |
-| Orchestration — multi-agent coordination and handoffs | Orchestration — multi-agent coordination and handoffs | [docs](#) |
-| Memory — persistent context across sessions | Memory — persistent context across sessions | [docs](#) |
-| Routing — intent-based skill activation | Routing — intent-based skill activation and deactivation | [docs](#) |
-| Output — structured artifacts and deliverables | Output — structured artifacts, reports, and deliverables | [docs](#) |
-| Observability — logging, tracing, audit trails | Observability — logging, tracing, and audit trails | [docs](#) |
+## Demo
 
----
+[![Watch the demo](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
 
-## 🔥 Hot Commands
-
-```bash
-# Quick start
-python3 main.py --task "cloner task here"
-
-# Power user shortcut
-python3 main.py --cloner --fast
-
-# Batch execution
-python3 main.py --batch tasks.txt --parallel 4
-
-# Status check
-python3 main.py --status
-```
-
-■ tip: Run with `--model qwen2.5:7b` for zero-cost local execution
-
----
-
-## ☠️ STARTUPS / BUSINESSES
-
-Use ai-website-cloner-template to automate ai-powered website cloning and replication template. Perfect for agencies, freelancers, and AI-first teams running cloner workflows at scale.
-
----
-
-## Features
-
-- ✅ AI-powered website cloning and replication template
-- ✅ Claude Code native integration
-- ✅ Ollama / Groq / Gemini model support
-- ✅ Batch processing with parallelism
-- ✅ Intent-based auto-activation
-- ✅ Zero-cost local execution path
-
----
-
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/hmzainjamil/ai-website-cloner-template.git
-cd ai-website-cloner-template
-
-# Install dependencies
-pip install -r requirements.txt  # or npm install
-
-# Configure environment
-cp .env.example .env
-# Edit .env with your API keys
-
-# Verify installation
-python3 main.py --verify
-```
-
----
+> Click the image above to watch the full demo on YouTube.
 
 ## Quick Start
 
-```bash
-# Minimal working example
-python3 main.py --input "your task here"
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/JCodesMore/ai-website-cloner-template.git my-clone
+   cd my-clone
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Start your AI agent** — Claude Code recommended:
+   ```bash
+   claude --chrome
+   ```
+4. **Run the skill**:
+   ```
+   /clone-website <target-url1> [<target-url2> ...]
+   ```
+5. **Customize** (optional) — after the base clone is built, modify as needed
 
-# With options
-python3 main.py --input "task" --model gpt-4 --output ~/Downloads/result.json
+> Using a different agent? Open `AGENTS.md` for project instructions — most agents pick it up automatically.
 
-# Batch mode
-python3 main.py --batch tasks.txt --parallel 4
+## Supported Platforms
+
+| Agent                                                         | Status                     |
+| ------------------------------------------------------------- | -------------------------- |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | **Recommended** — Opus 4.7 |
+| [Codex CLI](https://github.com/openai/codex)                  | Supported                  |
+| [OpenCode](https://opencode.ai/)                              | Supported                  |
+| [GitHub Copilot](https://github.com/features/copilot)         | Supported                  |
+| [Cursor](https://cursor.com/)                                 | Supported                  |
+| [Windsurf](https://codeium.com/windsurf)                      | Supported                  |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli)     | Supported                  |
+| [Cline](https://github.com/cline/cline)                       | Supported                  |
+| [Roo Code](https://github.com/RooCodeInc/Roo-Code)            | Supported                  |
+| [Continue](https://continue.dev/)                             | Supported                  |
+| [Amazon Q](https://aws.amazon.com/q/developer/)               | Supported                  |
+| [Augment Code](https://www.augmentcode.com/)                  | Supported                  |
+| [Aider](https://aider.chat/)                                  | Supported                  |
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) 24+
+- An AI coding agent (see [Supported Platforms](#supported-platforms))
+
+## Tech Stack
+
+- **Next.js 16** — App Router, React 19, TypeScript strict
+- **shadcn/ui** — Radix primitives + Tailwind CSS v4
+- **Tailwind CSS v4** — oklch design tokens
+- **Lucide React** — default icons (replaced by extracted SVGs during cloning)
+
+## How It Works
+
+The `/clone-website` skill runs a multi-phase pipeline:
+
+1. **Reconnaissance** — screenshots, design token extraction, interaction sweep (scroll, click, hover, responsive)
+2. **Foundation** — updates fonts, colors, globals, downloads all assets
+3. **Component Specs** — writes detailed spec files (`docs/research/components/`) with exact computed CSS values, states, behaviors, and content
+4. **Parallel Build** — dispatches builder agents in git worktrees, one per section/component
+5. **Assembly & QA** — merges worktrees, wires up the page, runs visual diff against the original
+
+Each builder agent receives the full component specification inline — exact `getComputedStyle()` values, interaction models, multi-state content, responsive breakpoints, and asset paths. No guessing.
+
+## Use Cases
+
+- **Platform migration** — rebuild a site you own from WordPress/Webflow/Squarespace into a modern Next.js codebase
+- **Lost source code** — your site is live but the repo is gone, the developer left, or the stack is legacy. Get the code back in a modern format
+- **Learning** — deconstruct how production sites achieve specific layouts, animations, and responsive behavior by working with real code
+
+## Not Intended For
+
+- **Phishing or impersonation** — this project must not be used for deceptive purposes, impersonation, or any activity that breaks the law.
+- **Passing off someone's design as your own** — logos, brand assets, and original copy belong to their owners.
+- **Violating terms of service** — some sites explicitly prohibit scraping or reproduction. Check first.
+
+## Project Structure
+
+```
+src/
+  app/              # Next.js routes
+  components/       # React components
+    ui/             # shadcn/ui primitives
+    icons.tsx       # Extracted SVG icons
+  lib/utils.ts      # cn() utility
+  types/            # TypeScript interfaces
+  hooks/            # Custom React hooks
+public/
+  images/           # Downloaded images from target
+  videos/           # Downloaded videos from target
+  seo/              # Favicons, OG images
+docs/
+  research/         # Extraction output & component specs
+  design-references/ # Screenshots
+scripts/
+  sync-agent-rules.sh  # Regenerate agent instruction files
+  sync-skills.mjs      # Regenerate /clone-website for all platforms
+AGENTS.md           # Agent instructions (single source of truth)
+CLAUDE.md           # Claude Code config (imports AGENTS.md)
+GEMINI.md           # Gemini CLI config (imports AGENTS.md)
 ```
 
----
-
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                      Input Layer                         │
-│  CLI / API / Webhook / Scheduled trigger                 │
-└───────────────────────┬─────────────────────────────────┘
-                        │
-┌───────────────────────▼─────────────────────────────────┐
-│                   Orchestration Layer                    │
-│  Intent detection → Skill routing → Agent dispatch      │
-└───────────────────────┬─────────────────────────────────┘
-                        │
-┌───────────────────────▼─────────────────────────────────┐
-│                   Execution Layer                        │
-│  Parallel agents · Tool calls · External APIs           │
-└───────────────────────┬─────────────────────────────────┘
-                        │
-┌───────────────────────▼─────────────────────────────────┐
-│                    Output Layer                          │
-│  Structured results · Files · Notifications             │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## Configuration
-
-| Option | Default | Description |
-|--------|---------|-------------|
-| `MODEL` | `qwen2.5:7b` | LLM model to use |
-| `PARALLEL` | `4` | Max parallel workers |
-| `TIMEOUT` | `120` | Per-task timeout (seconds) |
-| `OUTPUT_DIR` | `~/Downloads` | Default output directory |
-| `LOG_LEVEL` | `INFO` | Logging verbosity |
-| `CACHE` | `true` | Enable response caching |
-| `MAX_RETRIES` | `3` | Auto-retry on failure |
-| `API_KEY` | — | Provider API key |
-
----
-
-## Examples
-
-### Example 1 — Basic Usage
-
-```python
-from main import run
-
-result = run(
-    task="Analyze this dataset",
-    model="qwen2.5:7b",
-    output="~/Downloads/analysis.json"
-)
-print(result.summary)
-```
-
-### Example 2 — Batch Processing
-
-```python
-tasks = [
-    "Summarize document A",
-    "Extract entities from B",
-    "Compare A and B",
-]
-results = run_batch(tasks, parallel=3)
-for r in results:
-    print(r.title, r.status)
-```
-
-### Example 3 — Integration with Claude Code
-
-```bash
-# Add to CLAUDE.md
-echo "Auto-activate: cloner, website" >> ~/.claude/CLAUDE.md
-
-# Or load skill directly
-/load-skill ai-website-cloner-template
-```
-
----
-
-## Comparison
-
-| Feature | This Repo | Alternative A | Alternative B |
-|---------|-----------|--------------|--------------|
-| Speed | ⚡ Fast | 🐢 Slow | ⚡ Fast |
-| Cost | Free | Paid | Freemium |
-| Local | ✅ Yes | ❌ No | ✅ Yes |
-| Multi-agent | ✅ Yes | ❌ No | ❌ No |
-| Memory | ✅ Yes | ✅ Yes | ❌ No |
-| Streaming | ✅ Yes | ❌ No | ✅ Yes |
-| CLI | ✅ Yes | ✅ Yes | ❌ No |
-
----
-
-## Troubleshooting
-
-### Issue: Command not found
-```bash
-# Add to PATH
-export PATH="$PATH:$(pwd)/bin"
-source ~/.zshrc
-```
-
-### Issue: API key not set
-```bash
-echo 'export API_KEY="your-key-here"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-### Issue: Model timeout
-```bash
-# Increase timeout
-export TIMEOUT=300
-# Or use faster model
-python3 main.py --model qwen2.5:7b
-```
-
-### Issue: Out of memory
-```bash
-# Reduce parallel workers
-python3 main.py --parallel 1
-# Or use smaller model
-python3 main.py --model llama3.2:3b
-```
-
----
-
-## API Reference
-
-### `run(task, model, output)`
-Execute a single task.
-
-| Param | Type | Required | Description |
-|-------|------|----------|-------------|
-| `task` | `str` | ✅ | Task description |
-| `model` | `str` | ❌ | LLM model (default: auto) |
-| `output` | `str` | ❌ | Output path |
-| `timeout` | `int` | ❌ | Timeout in seconds |
-
-Returns: `Result` object with `.summary`, `.data`, `.status`
-
-### `run_batch(tasks, parallel)`
-Execute multiple tasks in parallel.
-
-| Param | Type | Required | Description |
-|-------|------|----------|-------------|
-| `tasks` | `list[str]` | ✅ | List of task strings |
-| `parallel` | `int` | ❌ | Max concurrent (default: 4) |
-| `model` | `str` | ❌ | LLM model |
-
-Returns: `list[Result]`
-
----
-
-## Workflow Integration
-
-### n8n
-```json
-{
-  "nodes": [
-    {
-      "type": "n8n-nodes-base.executeCommand",
-      "parameters": {
-        "command": "python3 /path/to/main.py --input '{{ $json.input }}'"
-      }
-    }
-  ]
-}
-```
-
-### Make.com / Zapier
-Use HTTP Request module → POST to local webhook endpoint.
-
-### Claude Code Hook
-```json
-{
-  "hooks": {
-    "PostToolUse": [{"matcher": "cloner", "command": "python3 ~/repos/ai-website-cloner-template/main.py"}]
-  }
-}
-```
-
----
-
-## Performance
-
-| Metric | Value |
-|--------|-------|
-| Avg latency (local) | < 2s |
-| Avg latency (cloud) | < 5s |
-| Throughput (batch) | 50 tasks/min |
-| Memory footprint | < 512MB |
-| Cold start | < 3s |
-| Cache hit rate | ~70% |
-
----
-
-## Roadmap
-
-- [x] Core execution engine
-- [x] CLI interface
-- [x] Batch processing
-- [x] Multi-agent support
-- [ ] Web UI dashboard
-- [ ] Real-time streaming API
-- [ ] Plugin marketplace
-- [ ] Mobile companion app
-- [ ] Enterprise SSO
-
----
-
-## Contributing
+## Commands
 
 ```bash
-# Fork and clone
-gh repo fork hmzainjamil/ai-website-cloner-template --clone
-cd ai-website-cloner-template
-
-# Create feature branch
-git checkout -b feat/your-feature
-
-# Make changes, then test
-python3 -m pytest tests/
-
-# Submit PR
-gh pr create --title "feat: your feature" --body "Description"
+npm run dev    # Start dev server
+npm run build  # Production build
+npm run lint   # ESLint check
+npm run typecheck # TypeScript check
+npm run check  # Run lint + typecheck + build
 ```
 
----
+### If using docker
 
-## Changelog
+```bash
+docker compose up app --build # build and run the app
+docker compose up dev --build # run the app in dev mode on port 3001
+```
 
-### v2.0.0
-- Multi-agent orchestration
-- Intent-based skill routing
-- 50% faster batch processing
+## Updating for Other Platforms
 
-### v1.5.0
-- Added streaming output
-- Memory persistence
-- n8n integration
+Two source-of-truth files power all platform support. Edit the source, then run the sync script:
 
-### v1.0.0
-- Initial release
-- Core CLI
-- Basic agent execution
+| What                   | Source of truth                         | Sync command                       |
+| ---------------------- | --------------------------------------- | ---------------------------------- |
+| Project instructions   | `AGENTS.md`                             | `bash scripts/sync-agent-rules.sh` |
+| `/clone-website` skill | `.claude/skills/clone-website/SKILL.md` | `node scripts/sync-skills.mjs`     |
 
----
+Each script regenerates the platform-specific copies automatically. Agents that read the source files natively need no regeneration.
 
-## License
-
-MIT — use freely, attribution appreciated.
-
----
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hmzainjamil/ai-website-cloner-template&type=Date)](https://star-history.com/#hmzainjamil/ai-website-cloner-template&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=JCodesMore/ai-website-cloner-template&type=Date)](https://star-history.com/#JCodesMore/ai-website-cloner-template&Date)
 
----
+## License
 
-*Built with Claude Code · Powered by open-source LLMs · Zero vendor lock-in*
-
----
-
-## Related Projects
-
-| Repo | Description | Stars |
-|------|-------------|-------|
-| [hmz-claude-code-best-practice](https://github.com/hmzainjamil/hmz-claude-code-best-practice) | Best practices for Claude Code | ⭐ |
-| [G0DM0D3](https://github.com/hmzainjamil/G0DM0D3) | AI agency OS | ⭐ |
-| [agent-skills](https://github.com/hmzainjamil/agent-skills) | Skill library | ⭐ |
-| [awesome-agentic-patterns](https://github.com/hmzainjamil/awesome-agentic-patterns) | Agentic design patterns | ⭐ |
-
----
-
-## Security
-
-- Never commit API keys to version control
-- Use `.env` files (added to `.gitignore`)
-- Rotate keys regularly
-- Use least-privilege API scopes
-- Audit tool permissions before granting
-
-```bash
-# Check for secrets before commit
-git diff --staged | grep -i "key\|secret\|token\|password"
-```
-
----
-
-## FAQ
-
-**Q: Does this work offline?**
-A: Yes — local models via Ollama require no internet.
-
-**Q: What models are supported?**
-A: Any Ollama model, OpenAI-compatible API, Groq, DeepSeek, Gemini.
-
-**Q: How do I add custom tools?**
-A: Drop a `.py` file in `tools/` directory — auto-discovered on startup.
-
-**Q: Can I use this in production?**
-A: Yes — add rate limiting and error handling for production workloads.
-
-**Q: Is there a cloud-hosted version?**
-A: Self-host only. No SaaS version.
-
-
----
-
-*Made by [hmzainjamil](https://github.com/hmzainjamil) — star if useful*
+MIT
