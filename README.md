@@ -1,5 +1,9 @@
 # ai-website-cloner-template
 
+<!-- HMZ PORTFOLIO STANDARD -->
+> Portfolio status: active · Visibility: public · Source of truth: current repository source.
+<!-- END HMZ PORTFOLIO STANDARD -->
+
 > **Clone any website, your way** - Universal AI agent template (works in Claude Code, Cursor, Aider, Continue, Cline, Codex, Amazon Q, Augment) that clones any public website into editable HTML/Tailwind in minutes.
 
 <p align="center">
