@@ -1,156 +1,89 @@
-# ai-website-cloner-template
+# AI Website Cloner Template
 
-> **Clone any website, your way** - Universal AI agent template (works in Claude Code, Cursor, Aider, Continue, Cline, Codex, Amazon Q, Augment) that clones any public website into editable HTML/Tailwind in minutes.
+A reusable Next.js starter with a website reverse-engineering workflow for AI coding agents. It provides platform-specific instructions and a pre-scaffolded application; it does not include a crawler or a completed clone. The current home page explicitly marks the clone target as not yet built.
 
-<p align="center"><a href="https://github.com/hmzainjamil/ai-website-cloner-template">Repository</a> · <a href="https://github.com/hmzainjamil/ai-website-cloner-template/commits/main">Commits</a> · <a href="https://github.com/hmzainjamil/ai-website-cloner-template/issues">Issues</a></p>
-<p align="center"><img alt="Documentation" src="https://img.shields.io/badge/documentation-deep%20editorial-lightgrey"> <img alt="Lifecycle" src="https://img.shields.io/badge/lifecycle-active-success"></p>
+## Status
 
-<!-- HMZ DEEP README v1 -->
-
-## At a glance
-
-| Field | Current state |
+| Area | Current state |
 |---|---|
-| Repository | ai-website-cloner-template |
-| Visibility | Public |
-| Lifecycle | Active |
-| Evidence basis | Current repository documentation and source-visible material |
+| Template | Next.js App Router starter using React, TypeScript, Tailwind CSS, and shared UI components |
+| Workflow | `/clone-website <url...>` instructions, with the Claude skill as the source for generated platform copies |
+| Agent configuration | Checked-in command, skill, or rules files for the platforms listed below |
+| Website inspection | A browser-led inspection guide; actual browser access depends on the agent environment |
+| Application | Starter scaffold. Build the requested site in this repository after inspection |
+| Node.js | 24 or newer |
 
-## Why this exists
+Supported instruction/configuration files in this repository: Claude Code, Codex CLI, OpenCode, GitHub Copilot, Cursor, Windsurf, Gemini CLI, Cline, Continue, Amazon Q, Augment Code, and Aider. These files describe workflows; they do not guarantee that a given agent, browser connector, model, or parallel-agent feature is installed or available.
 
-**Clone any website, your way** - Universal AI agent template (works in Claude Code, Cursor, Aider, Continue, Cline, Codex, Amazon Q, Augment) that clones any public website into editable HTML/Tailwind in minutes.
+## Quick start
 
-The README documents the cloning workflow while separating source inspection, generated implementation, and the behavior of the resulting site.
+Requirements: Node.js 24 or newer and npm.
 
-## CONCEPTS
-
-| Concept | Location | Description |
-|---|---|---|
-| **Claude skill** | `.claude/skills/clone-website/SKILL.md` | Claude Code clone-website skill - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.claude/skills/clone-website/SKILL.md) |
-| **Cursor command** | `.cursor/commands/clone-website.md` | Cursor sibling command - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.cursor/commands/clone-website.md) |
-| **Aider config** | `.aider.conf.yml` | Aider runtime config - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.aider.conf.yml) |
-| **Codex skill** | `.codex/skills/clone-website/SKILL.md` | OpenAI Codex skill mirror - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.codex/skills/clone-website/SKILL.md) |
-| **Amazon Q agent** | `.amazonq/cli-agents/clone-website.json` | Amazon Q CLI agent definition - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.amazonq/cli-agents/clone-website.json) |
-| **Augment command** | `.augment/commands/clone-website.md` | Augment command sibling - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.augment/commands/clone-website.md) |
-| **Continue command** | `.continue/commands/clone-website.md` | Continue command sibling - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.continue/commands/clone-website.md) |
-| **Cline rules** | `.clinerules` | Cline rules file - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.clinerules) |
-| **Amazon Q project rules** | `.amazonq/rules/project.md` | Amazon Q project rules - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.amazonq/rules/project.md) |
-| **Continue rules** | `.continue/rules/project.md` | Continue project rules - [Source](https://github.com/hmzainjamil/ai-website-cloner-template/blob/main/.continue/rules/project.md) |
-
-## HOW IT WORKS
-
-```
-+---------------------------------------------------------+
-|                       INPUT                             |
-|   Claude Code . Cursor . Aider . Continue . Cline . |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  ORIENT / PARSE                         |
-|   - Validate inputs                                     |
-|   - Load skill / agent / tool definitions               |
-|   - Resolve config + secrets from .env                  |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  PLAN (Claude Sonnet)                   |
-|   - Decompose goal into ordered subtasks                |
-|   - Pick model per task (Sonnet / Haiku / Tier-0)       |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  EXECUTE (parallel)                     |
-|   - Spawn sub-agents / call tools                       |
-|   - Stream tokens, persist artifacts                    |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  VERIFY                                 |
-|   - Lint / typecheck / visual diff / QA agent           |
-|   - On failure -> re-prompt with error context          |
-+--------------------------+------------------------------+
-                           v
-+---------------------------------------------------------+
-|                  SHIP                                   |
-|   - Write to disk . commit . PR . upload                |
-+---------------------------------------------------------+
-```
-
-## Install
-
-```bash
+```sh
 git clone https://github.com/hmzainjamil/ai-website-cloner-template.git
 cd ai-website-cloner-template
-
-# Per-repo install (try in order):
-bash install.sh 2>/dev/null || \
-npm install 2>/dev/null || \
-bun install 2>/dev/null || \
-pip install -r requirements.txt 2>/dev/null || true
+npm ci
+npm run dev
 ```
 
-Environment:
+Open the local URL printed by Next.js. To use the workflow, open the project in a supported coding agent and provide the target URL to its clone-website command or skill. The workflow requires browser automation to inspect a site; availability depends on your agent setup. Review the target site's terms and rights before using its content or assets.
 
-```bash
-cp .env.example .env  # if present
-# fill ANTHROPIC_API_KEY at minimum
-```
+## What the workflow does
 
-## Usage
+The source instructions in `.claude/skills/clone-website/SKILL.md` guide an agent through browser inspection, visual and interaction notes, design tokens, component specifications, implementation, and visual comparison. Platform copies are generated from that source with `node scripts/sync-skills.mjs`. Project rules are based on `AGENTS.md` and can be copied to selected agent configuration files with `bash scripts/sync-agent-rules.sh`.
 
-```bash
-# Claude Code skill packs:
-/skill-name "your goal"
+Generated agent instructions may differ in format and may omit features that a platform cannot represent. Regenerate them after editing a source file, then review the generated diff before committing.
 
-# CLI / scripts:
-python scripts/<script>.py --input ./input --output ./output
+## Project map
 
-# TypeScript projects:
-bun run dev    # or npm run dev
-```
+| Path | Purpose |
+|---|---|
+| `src/app/` | Next.js App Router shell and current starter page |
+| `src/components/ui/` | Shared UI components |
+| `src/lib/utils.ts` | Shared class-name utility |
+| `src/hooks/`, `src/types/` | Reserved locations for hooks and types |
+| `.claude/skills/clone-website/SKILL.md` | Source workflow instructions |
+| `.codex/`, `.cursor/`, `.github/skills/`, and other agent folders | Platform workflow copies and rules |
+| `docs/research/INSPECTION_GUIDE.md` | Website inspection checklist and suggested research artifacts |
+| `scripts/sync-skills.mjs` | Generates platform-specific clone workflow files |
+| `scripts/sync-agent-rules.sh` | Generates project-rule copies from `AGENTS.md` |
+| `Dockerfile`, `Dockerfile.dev`, `docker-compose.yml` | Container build and local development configuration |
+| `.github/workflows/ci.yml` | CI lint, typecheck, and build checks |
 
-### Configuration knobs
+## Commands
 
-| Key | Default | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | - (required) | Claude API key |
-| `MODEL` | `claude-sonnet-4-7` | Default LLM |
-| `MODEL_FALLBACK` | `claude-haiku-4` | Cheaper fallback |
-| `MAX_TOKENS` | `8192` | Per-call ceiling |
-| `TEMPERATURE` | `0.2` | Determinism dial |
-| `LOG_LEVEL` | `info` | debug / info / warn / error |
-| `OUT_DIR` | `./out` | Where artifacts land |
-| `CACHE_DIR` | `.cache` | Prompt cache root |
-| `PARALLELISM` | `4` | Sub-agent concurrency |
-| `RETRY_MAX` | `3` | Per-call retry budget |
-| `TIMEOUT_S` | `120` | Per-call timeout |
-| `DRY_RUN` | `false` | Plan-only, no side effects |
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Check TypeScript types |
+| `npm run check` | Run lint, typecheck, and build |
+| `node scripts/sync-skills.mjs` | Regenerate clone-website workflow copies |
+| `bash scripts/sync-agent-rules.sh` | Regenerate project rule copies |
 
-### Case 3 - DTC brand, ad creative testing
+GitHub Actions is configured to run install, lint, typecheck, and build on pushes and pull requests targeting `master`. These commands are documented from the checked-in package and workflow configuration; they were not run as part of this documentation update.
 
-- Before: $2K/month UGC creator retainer, 4 ads/month.
-- After: 30+ ad variants/week via Arcads + Claude, A/B-tested.
-- Result: 3x creative velocity, 41% lower CAC after 6 weeks.
+## Documentation
 
-## Security
+See [docs/README.md](docs/README.md) for the documentation map. Read the [inspection guide](docs/research/INSPECTION_GUIDE.md) before using the workflow.
 
-- Never commit API keys. `.env` is in `.gitignore` by default.
-- Use [git-secret](https://git-secret.io/) or 1Password CLI for team secret sharing.
-- Review the QA / safety layer for any tool that writes to disk or runs shells (see `mac_safety.py` style guards).
-- Vulnerability reports: open a private GitHub Security Advisory.
+## Limitations and safe use
 
-## Limitations
+- This repository contains agent instructions and a starter application, not a general-purpose site crawler or a guarantee of pixel-perfect results.
+- Browser access, asset retrieval, agent execution, and generated output depend on tools and permissions configured in your environment.
+- Inspect only sites and materials you are authorized to access. Respect site terms, copyright, privacy, and access controls. Do not collect private or credential-protected content without authorization.
+- Review generated code, dependencies, downloaded assets, and external requests before deployment. Do not put API keys or session credentials in source control.
+- A generated visual reproduction does not establish permission to reuse a site's branding, copy, images, or other protected material.
 
-- A generated clone is not automatically equivalent to its source site.
-- External websites change independently of this repository.
-- Legal and licensing constraints apply to copied content and assets.
+## Provenance and license
 
-## Related
+The repository metadata and changelog identify [JCodesMore/ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template) as the upstream project. This repository retains the attribution in [LICENSE](LICENSE). See [CHANGELOG.md](CHANGELOG.md) for recorded project changes.
 
-- [Claude Code](https://docs.claude.com/en/docs/claude-code) - official docs
-- [Anthropic Console](https://console.anthropic.com) - API keys + billing
-- [Crawlee](https://crawlee.dev) - web scraping framework
-- [hmz-claude-code-best-practice](https://github.com/hmzainjamil/hmz-claude-code-best-practice) - sister repo
+## Contributing
+
+Use the source skill and project rules as the editing points. If changing generated platform instructions, run the corresponding sync script and inspect the complete diff. Use the repository's lint, typecheck, and build checks for implementation changes.
 
 ## Maintainer
 
